@@ -43,7 +43,7 @@ public class LoginController {
          * gibi de gönderilebilir ama model altında gönderilmesi yönetimi ve
          * anlaşılabilir olmasını sağlıyor
          */
-        view.addObject("model"+ ModelLogin.builder()
+        view.addObject("bunucagirmanlazimattributeyi",ModelLogin.builder()
                 .title("kullanici giris sayfasi")
                 .loginbutton("giris yap butonu")
                 .password("sifre")
