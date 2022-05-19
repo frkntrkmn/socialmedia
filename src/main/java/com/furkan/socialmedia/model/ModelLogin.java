@@ -20,4 +20,6 @@ public class ModelLogin {
     String loginbutton;
     String username;
     String password;
+    String tabloRegister;
+    String tabloLogin;
 }
