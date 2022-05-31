@@ -1,14 +1,14 @@
 package com.furkan.socialmedia.controller.web;
 
 import com.furkan.socialmedia.model.ModelLogin;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+@RequiredArgsConstructor
 @Controller
-// restte iken restcontroller eklenir
-// burada sadece controller
 @RequestMapping("/login")
 public class LoginController {
 
@@ -43,12 +43,11 @@ public class LoginController {
          * gibi de gönderilebilir ama model altında gönderilmesi yönetimi ve
          * anlaşılabilir olmasını sağlıyor
          */
-        view.addObject("bunucagirmanlazimattributeyi", ModelLogin.builder()
+        view.addObject("model", ModelLogin.builder()
                 .title("kullanici giris sayfasi")
-                .loginbutton("giris yap butonu")
-                .password("sifre")
                 .username("kullanici adi")
-                .build()
+                .password("sifre")
+                .loginbutton("giris yap butonu").build()
         );
         return view;
 

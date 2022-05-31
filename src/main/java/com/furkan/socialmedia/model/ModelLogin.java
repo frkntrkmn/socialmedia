@@ -17,9 +17,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ModelLogin {
     String title;
-    String loginbutton;
     String username;
     String password;
-    String tabloRegister;
-    String tabloLogin;
+    String loginbutton;
+    String tabregister;
+    String tablogin;
+    boolean error;
 }
