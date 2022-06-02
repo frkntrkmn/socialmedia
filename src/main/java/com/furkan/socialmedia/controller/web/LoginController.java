@@ -1,17 +1,23 @@
 package com.furkan.socialmedia.controller.web;
 
 import com.furkan.socialmedia.model.ModelLogin;
+import com.furkan.socialmedia.repository.entity.User;
+import com.furkan.socialmedia.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 
+   private final UserService userService;
     //bu sayfanın direk karşımızıa gelmesini istiyoruz bu yüzden
     // get mapping de ekstra bir adres vermiyoruz
     @GetMapping("")
@@ -52,4 +58,25 @@ public class LoginController {
         return view;
 
     }
+
+    @PostMapping("/register")
+   public Object register(String firstname,String lastname, String email,String password,int day,
+                          int month,int year,boolean gender, String city, String country){
+        userService.save(User.builder()
+                        .avatar("")
+                        .borndate(year+"")
+                        .createprofile(new Date().getTime())
+                        .email(email)
+                        .name(firstname+" "+lastname)
+                        .city(city)
+                        .country(country)
+                        .gender(gender ? "erkek" : "kadın")
+                        .password(password)
+                .build());
+
+        return "redirect:/login";
+    }
+
+
+
 }

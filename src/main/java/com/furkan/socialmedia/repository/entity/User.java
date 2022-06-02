@@ -23,8 +23,9 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    String username;
+   long id;
+    String name;
+    String surname;
     String borndate;
     String email;
     String password;
@@ -35,5 +36,4 @@ public class User {
     String country;
     String phonetoken;
     long createprofile;
-
 }
