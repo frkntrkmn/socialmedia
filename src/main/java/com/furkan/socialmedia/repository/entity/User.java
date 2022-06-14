@@ -26,6 +26,7 @@ public class User {
    long id;
     String name;
     String surname;
+    String username;
     String borndate;
     String email;
     String password;

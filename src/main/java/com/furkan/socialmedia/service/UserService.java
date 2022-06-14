@@ -24,6 +24,14 @@ public class UserService {
     public void delete(long id){
         userRepository.deleteById(id);
     }
+
+
+    // buradaki findbyusrnameandpassword adı kendim anlamam için öylesine bir isimdir
+    // özel bir ad degildir.
+    //özel methodları repository de yani springjpa yı extend ettigimiz yerde kullanıyoruz.
+    public Optional<User> findOptionalByUsernameAndPassword(String username, String password){
+        return userRepository.findOptionalByUsernameAndPassword(username,password);
+    }
     public List<User> findall(long id){
         return userRepository.findAll();
     }

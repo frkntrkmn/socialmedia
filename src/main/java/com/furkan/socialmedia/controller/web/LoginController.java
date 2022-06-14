@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 
-   private final UserService userService;
+    private final UserService userService;
     //bu sayfanın direk karşımızıa gelmesini istiyoruz bu yüzden
     // get mapping de ekstra bir adres vermiyoruz
     @GetMapping("")
@@ -53,25 +54,55 @@ public class LoginController {
                 .title("kullanici giris sayfasi")
                 .username("kullanici adi")
                 .password("sifre")
+                .error(false)
                 .loginbutton("giris yap butonu").build()
         );
         return view;
 
     }
 
+    @PostMapping("")
+    public Object index (String username, String password){
+        /**
+         * 1- login sayfasyı üzerinden gönderilen verileri al
+         * 2_bu kullanıcı varsa bana bu kullanıcıyı döndür
+         * peki bu soruyu nereye soracağız controllerdeyiz servisle iletişime geçmemeiz gerekir
+         * servise soracağız
+         * gidip bu kullanıcı ve şifreye uygun bir kullanıcı var mı yok mu diye soracagız varsa döndürücez
+         * ama şu ana kadar serviste kullanıcıyı döndürme methodu yok onu yazmamız lazım
+         *
+         */
+        Optional<User> result = userService.findOptionalByUsernameAndPassword(username, password);
+        if(result.isPresent()){
+            return "redirect:/home";
+        }else {
+            ModelAndView model= new ModelAndView();
+            model.addObject("model", ModelLogin.builder()
+                    .title("kullanici giris sayfasi")
+                    .username("kullanici adi")
+                    .password("sifre")
+                    .error(true)
+                    .loginbutton("giris yap butonu").build()
+            );
+            model.setViewName("login");
+            return model;
+        }
+    }
+
     @PostMapping("/register")
-   public Object register(String firstname,String lastname, String email,String password,int day,
-                          int month,int year,boolean gender, String city, String country){
+    public Object register(String firstname,String lastname, String email,String password,int day,
+                           int month,int year,boolean gender, String city, String country){
         userService.save(User.builder()
-                        .avatar("")
-                        .borndate(year+"")
-                        .createprofile(new Date().getTime())
-                        .email(email)
-                        .name(firstname+" "+lastname)
-                        .city(city)
-                        .country(country)
-                        .gender(gender ? "erkek" : "kadın")
-                        .password(password)
+                .avatar("")
+                .borndate(year+"")
+                .username(email)
+                .createprofile(new Date().getTime())
+                .email(email)
+                .name(firstname+" "+lastname)
+                .city(city)
+                .country(country)
+                .gender(gender ? "kadın" :"erkek" )
+                .password(password)
                 .build());
 
         return "redirect:/login";
