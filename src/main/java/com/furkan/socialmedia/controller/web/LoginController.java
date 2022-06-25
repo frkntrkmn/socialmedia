@@ -3,6 +3,7 @@ package com.furkan.socialmedia.controller.web;
 import com.furkan.socialmedia.model.ModelLogin;
 import com.furkan.socialmedia.repository.entity.User;
 import com.furkan.socialmedia.service.UserService;
+import com.furkan.socialmedia.utility.StaticValues;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,6 +75,8 @@ public class LoginController {
          */
         Optional<User> result = userService.findOptionalByUsernameAndPassword(username, password);
         if(result.isPresent()){
+            // giris yapan kullanıcının bilgilerini static bir degere atadım.
+            StaticValues.user=result.get();
             return "redirect:/home";
         }else {
             ModelAndView model= new ModelAndView();
