@@ -1,2 +1,2 @@
 # socialmedia
- SocialMediaMuhammedhoca
+ SocialMediaMVC
